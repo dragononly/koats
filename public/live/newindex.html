@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <title>天健直播</title>
+        <meta charset="utf-8">
+        <script src="node_modules/p2p-media-loader-core/build/p2p-media-loader-core.min.js">
+        </script>
+        <script src="node_modules/p2p-media-loader-hlsjs/build/p2p-media-loader-hlsjs.min.js">
+        </script>
+        <script src="js/clappr.min.js"></script>
+    </head>
+<body>
+    <div id="player"></div>
+    <script>
+        if (p2pml.hlsjs.Engine.isSupported()) {
+            var engine = new p2pml.hlsjs.Engine();
+
+            var player = new Clappr.Player({
+                parentId: "#player",
+                source: "https://media.w3.org/2010/05/sintel/trailer.mp4",
+                mute: true,
+                autoPlay: true,
+                playback: {
+                    hlsjsConfig: {
+                        liveSyncDurationCount: 7,
+                        loader: engine.createLoaderClass()
+                    }
+                }
+            });
+
+            p2pml.hlsjs.initClapprPlayer(player);
+        } else {
+            document.write("Not supported :(");
+        }
+    </script>
+</body>
+</html>
