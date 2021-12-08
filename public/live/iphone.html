@@ -108,6 +108,7 @@
 
         #video {
             width: 100%;
+            height: 100%;
         }
 
         .embed-responsive {
@@ -455,10 +456,15 @@
                         this.videoUrl = l
 
                     } else {
-                        this.videoUrl = "http://xiong.pccpa.cn/api/v3/file/get/26/150416M.mp4?sign=0ZcuV4EkZPBlkslBUIaeqAVrzSb67nOw62yV5R33KDY%3D%3A0"
+                        this.videoUrl = "https://wowza.peer5.com/live/smil:bbb_abr.smil/playlist.m3u8"
                     }
 
                     this.playerType = videoUrlForm.type.value;
+                    // if (!this.isP2PSupported) {
+                    //     this.playerType = 'shakaplayer';
+                    // } else {
+
+                    // }
                     this.videoContainer = document.getElementById("video_container");
 
                     this.loadSpeedTimespan = 10; // seconds
@@ -513,16 +519,22 @@
                     }
                     const config = {
                         segments: {
-                            swarmId: "http://cdn.pccpa.cn:7002/live/movie.m3u8 " // any unique string
+                            swarmId: "http://cdn.pccpa.cn:7002/live/movie.m3u8" // any unique string
                         },
                         loader: {
                             trackerAnnounce: [
-                                "wss://personal.tracker1.com",
-                                "wss://personal.tracker2.com"
+                                "ws://cdn.pccpa.cn:8000",
+                                "wss://tracker.openwebtorrent.com",
+                                "udp://93.158.213.92:1337/announce",
+                                "udp://151.80.120.113:2810/announce",
+                                "udp://open.tracker.cl:1337/announce",
+                                "http://openbittorrent.com:80/announce"
                             ],
                             rtcConfig: {
                                 iceServers: [
-                                    { urls: "stun:stun.l.google.com:19302" },
+
+                                    { urls: "stun:cdn.pccpa.cn:3478" },
+                                    // { urls: "stun:stun.l.google.com:19302" },
                                     { urls: "stun:global.stun.twilio.com:3478?transport=udp" }
                                 ]
                             }
@@ -662,8 +674,8 @@
                     video.id = "video";
                     video.volume = 0;
                     video.setAttribute("playsinline", "");
-                    video.setAttribute("muted", "");
-                    video.setAttribute("autoplay", "");
+                    video.setAttribute("muted", true);
+                    video.setAttribute("autoplay", true);
                     video.setAttribute("controls", "");
                     this.videoContainer.appendChild(video);
 
@@ -704,16 +716,17 @@
                     outer.appendChild(video);
                     this.videoContainer.appendChild(outer);
 
+                    //设置自动播放
                     var setup = {
                         parentId: "#video",
                         plugins: [],
                         source: this.videoUrl,
                         width: "100%",
                         height: "100%",
-                        muted: false,
-                        mute: false,
+                        // muted: true,
+                        mute: true,
                         autoPlay: true,
-                        'webkit- playsinline': true,
+                        'webkit-playsinline': true,
                         'x5-video-player-type': true,
                         'x5-video-orientation': "portraint",
                         playback: {
@@ -764,8 +777,7 @@
                     video.id = "video";
                     video.volume = 0;
                     video.setAttribute("playsinline", "");
-                    video.setAttribute("muted", "");
-                    video.setAttribute("autoplay", "");
+
                     this.videoContainer.appendChild(video);
 
                     await scriptPromise;
