@@ -64,7 +64,7 @@ var AutoController = (function () {
     }
     AutoController.prototype.autoget = function (data) {
         return __awaiter(this, void 0, void 0, function () {
-            var obj, keyword, prop, cab, obj2, arr, _i, arr_1, i;
+            var obj, keyword, prop, cab, obj2, arr, _i, arr_1, i, error_1, error_2, error_3, error_4;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -74,36 +74,61 @@ var AutoController = (function () {
                             obj[prop] = data[prop];
                             keyword.push(prop);
                         }
-                        if (!keyword.includes('back')) return [3, 5];
+                        if (!keyword.includes('back')) return [3, 10];
                         obj2 = {};
-                        if (!obj['back'].includes(',')) return [3, 2];
+                        if (!obj['back'].includes(',')) return [3, 5];
                         arr = obj['back'].split(',');
                         for (_i = 0, arr_1 = arr; _i < arr_1.length; _i++) {
                             i = arr_1[_i];
                             obj2[i] = 1;
                         }
-                        return [4, auto_1.auto.find(obj, obj2, { limit: parseInt(obj['limit']) })];
+                        _a.label = 1;
                     case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4, auto_1.auto.find(obj, obj2, { limit: parseInt(obj['limit']) })];
+                    case 2:
                         cab = _a.sent();
                         return [3, 4];
-                    case 2:
-                        obj2 = obj['back'];
-                        return [4, auto_1.auto.find(obj, obj2, { limit: parseInt(obj['limit']) })];
                     case 3:
-                        cab = _a.sent();
-                        _a.label = 4;
+                        error_1 = _a.sent();
+                        return [2, ""];
                     case 4: return [3, 9];
                     case 5:
-                        if (!keyword.includes('limit')) return [3, 7];
-                        return [4, auto_1.auto.find(obj, null, { limit: parseInt(obj['limit']) })];
+                        obj2 = obj['back'];
+                        _a.label = 6;
                     case 6:
+                        _a.trys.push([6, 8, , 9]);
+                        return [4, auto_1.auto.find(obj, obj2, { limit: parseInt(obj['limit']) })];
+                    case 7:
                         cab = _a.sent();
                         return [3, 9];
-                    case 7: return [4, auto_1.auto.find(obj)];
                     case 8:
+                        error_2 = _a.sent();
+                        return [2, ""];
+                    case 9: return [3, 18];
+                    case 10:
+                        if (!keyword.includes('limit')) return [3, 15];
+                        _a.label = 11;
+                    case 11:
+                        _a.trys.push([11, 13, , 14]);
+                        return [4, auto_1.auto.find(obj, null, { limit: parseInt(obj['limit']) })];
+                    case 12:
                         cab = _a.sent();
-                        _a.label = 9;
-                    case 9: return [2, { data: cab }];
+                        return [3, 14];
+                    case 13:
+                        error_3 = _a.sent();
+                        return [2, ""];
+                    case 14: return [3, 18];
+                    case 15:
+                        _a.trys.push([15, 17, , 18]);
+                        return [4, auto_1.auto.find(obj)];
+                    case 16:
+                        cab = _a.sent();
+                        return [3, 18];
+                    case 17:
+                        error_4 = _a.sent();
+                        return [2, ""];
+                    case 18: return [2, { data: cab }];
                 }
             });
         });
@@ -253,7 +278,7 @@ var AutoController = (function () {
     };
     AutoController.prototype.testget = function (data) {
         return __awaiter(this, void 0, void 0, function () {
-            var obj, keyword, prop, cab, obj2, arr, _i, arr_7, i;
+            var obj, keyword, prop, cab, obj2, arr, _i, arr_7, i, error_5, error_6, error_7, error_8;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -263,36 +288,61 @@ var AutoController = (function () {
                             obj[prop] = data[prop];
                             keyword.push(prop);
                         }
-                        if (!keyword.includes('back')) return [3, 5];
+                        if (!keyword.includes('back')) return [3, 10];
                         obj2 = {};
-                        if (!obj['back'].includes(',')) return [3, 2];
+                        if (!obj['back'].includes(',')) return [3, 5];
                         arr = obj['back'].split(',');
                         for (_i = 0, arr_7 = arr; _i < arr_7.length; _i++) {
                             i = arr_7[_i];
                             obj2[i] = 1;
                         }
-                        return [4, test_1.test.find(obj, obj2, { limit: parseInt(obj['limit']) })];
+                        _a.label = 1;
                     case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4, test_1.test.find(obj, obj2, { limit: parseInt(obj['limit']) })];
+                    case 2:
                         cab = _a.sent();
                         return [3, 4];
-                    case 2:
-                        obj2 = obj['back'];
-                        return [4, test_1.test.find(obj, obj2, { limit: parseInt(obj['limit']) })];
                     case 3:
-                        cab = _a.sent();
-                        _a.label = 4;
+                        error_5 = _a.sent();
+                        return [2, ""];
                     case 4: return [3, 9];
                     case 5:
-                        if (!keyword.includes('limit')) return [3, 7];
-                        return [4, test_1.test.find(obj, null, { limit: parseInt(obj['limit']) })];
+                        obj2 = obj['back'];
+                        _a.label = 6;
                     case 6:
+                        _a.trys.push([6, 8, , 9]);
+                        return [4, test_1.test.find(obj, obj2, { limit: parseInt(obj['limit']) })];
+                    case 7:
                         cab = _a.sent();
                         return [3, 9];
-                    case 7: return [4, test_1.test.find(obj)];
                     case 8:
+                        error_6 = _a.sent();
+                        return [2, ""];
+                    case 9: return [3, 18];
+                    case 10:
+                        if (!keyword.includes('limit')) return [3, 15];
+                        _a.label = 11;
+                    case 11:
+                        _a.trys.push([11, 13, , 14]);
+                        return [4, test_1.test.find(obj, null, { limit: parseInt(obj['limit']) })];
+                    case 12:
                         cab = _a.sent();
-                        _a.label = 9;
-                    case 9: return [2, { data: cab }];
+                        return [3, 14];
+                    case 13:
+                        error_7 = _a.sent();
+                        return [2, ""];
+                    case 14: return [3, 18];
+                    case 15:
+                        _a.trys.push([15, 17, , 18]);
+                        return [4, test_1.test.find(obj)];
+                    case 16:
+                        cab = _a.sent();
+                        return [3, 18];
+                    case 17:
+                        error_8 = _a.sent();
+                        return [2, ""];
+                    case 18: return [2, { data: cab }];
                 }
             });
         });
@@ -442,7 +492,7 @@ var AutoController = (function () {
     };
     AutoController.prototype.livegroupget = function (data) {
         return __awaiter(this, void 0, void 0, function () {
-            var obj, keyword, prop, cab, obj2, arr, _i, arr_13, i;
+            var obj, keyword, prop, cab, obj2, arr, _i, arr_13, i, error_9, error_10, error_11, error_12;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -452,36 +502,61 @@ var AutoController = (function () {
                             obj[prop] = data[prop];
                             keyword.push(prop);
                         }
-                        if (!keyword.includes('back')) return [3, 5];
+                        if (!keyword.includes('back')) return [3, 10];
                         obj2 = {};
-                        if (!obj['back'].includes(',')) return [3, 2];
+                        if (!obj['back'].includes(',')) return [3, 5];
                         arr = obj['back'].split(',');
                         for (_i = 0, arr_13 = arr; _i < arr_13.length; _i++) {
                             i = arr_13[_i];
                             obj2[i] = 1;
                         }
-                        return [4, livegroup_1.livegroup.find(obj, obj2, { limit: parseInt(obj['limit']) })];
+                        _a.label = 1;
                     case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4, livegroup_1.livegroup.find(obj, obj2, { limit: parseInt(obj['limit']) })];
+                    case 2:
                         cab = _a.sent();
                         return [3, 4];
-                    case 2:
-                        obj2 = obj['back'];
-                        return [4, livegroup_1.livegroup.find(obj, obj2, { limit: parseInt(obj['limit']) })];
                     case 3:
-                        cab = _a.sent();
-                        _a.label = 4;
+                        error_9 = _a.sent();
+                        return [2, ""];
                     case 4: return [3, 9];
                     case 5:
-                        if (!keyword.includes('limit')) return [3, 7];
-                        return [4, livegroup_1.livegroup.find(obj, null, { limit: parseInt(obj['limit']) })];
+                        obj2 = obj['back'];
+                        _a.label = 6;
                     case 6:
+                        _a.trys.push([6, 8, , 9]);
+                        return [4, livegroup_1.livegroup.find(obj, obj2, { limit: parseInt(obj['limit']) })];
+                    case 7:
                         cab = _a.sent();
                         return [3, 9];
-                    case 7: return [4, livegroup_1.livegroup.find(obj)];
                     case 8:
+                        error_10 = _a.sent();
+                        return [2, ""];
+                    case 9: return [3, 18];
+                    case 10:
+                        if (!keyword.includes('limit')) return [3, 15];
+                        _a.label = 11;
+                    case 11:
+                        _a.trys.push([11, 13, , 14]);
+                        return [4, livegroup_1.livegroup.find(obj, null, { limit: parseInt(obj['limit']) })];
+                    case 12:
                         cab = _a.sent();
-                        _a.label = 9;
-                    case 9: return [2, { data: cab }];
+                        return [3, 14];
+                    case 13:
+                        error_11 = _a.sent();
+                        return [2, ""];
+                    case 14: return [3, 18];
+                    case 15:
+                        _a.trys.push([15, 17, , 18]);
+                        return [4, livegroup_1.livegroup.find(obj)];
+                    case 16:
+                        cab = _a.sent();
+                        return [3, 18];
+                    case 17:
+                        error_12 = _a.sent();
+                        return [2, ""];
+                    case 18: return [2, { data: cab }];
                 }
             });
         });
@@ -631,7 +706,7 @@ var AutoController = (function () {
     };
     AutoController.prototype.messageget = function (data) {
         return __awaiter(this, void 0, void 0, function () {
-            var obj, keyword, prop, cab, obj2, arr, _i, arr_19, i;
+            var obj, keyword, prop, cab, obj2, arr, _i, arr_19, i, error_13, error_14, error_15, error_16;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -641,36 +716,61 @@ var AutoController = (function () {
                             obj[prop] = data[prop];
                             keyword.push(prop);
                         }
-                        if (!keyword.includes('back')) return [3, 5];
+                        if (!keyword.includes('back')) return [3, 10];
                         obj2 = {};
-                        if (!obj['back'].includes(',')) return [3, 2];
+                        if (!obj['back'].includes(',')) return [3, 5];
                         arr = obj['back'].split(',');
                         for (_i = 0, arr_19 = arr; _i < arr_19.length; _i++) {
                             i = arr_19[_i];
                             obj2[i] = 1;
                         }
-                        return [4, message_1.message.find(obj, obj2, { limit: parseInt(obj['limit']) })];
+                        _a.label = 1;
                     case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4, message_1.message.find(obj, obj2, { limit: parseInt(obj['limit']) })];
+                    case 2:
                         cab = _a.sent();
                         return [3, 4];
-                    case 2:
-                        obj2 = obj['back'];
-                        return [4, message_1.message.find(obj, obj2, { limit: parseInt(obj['limit']) })];
                     case 3:
-                        cab = _a.sent();
-                        _a.label = 4;
+                        error_13 = _a.sent();
+                        return [2, ""];
                     case 4: return [3, 9];
                     case 5:
-                        if (!keyword.includes('limit')) return [3, 7];
-                        return [4, message_1.message.find(obj, null, { limit: parseInt(obj['limit']) })];
+                        obj2 = obj['back'];
+                        _a.label = 6;
                     case 6:
+                        _a.trys.push([6, 8, , 9]);
+                        return [4, message_1.message.find(obj, obj2, { limit: parseInt(obj['limit']) })];
+                    case 7:
                         cab = _a.sent();
                         return [3, 9];
-                    case 7: return [4, message_1.message.find(obj)];
                     case 8:
+                        error_14 = _a.sent();
+                        return [2, ""];
+                    case 9: return [3, 18];
+                    case 10:
+                        if (!keyword.includes('limit')) return [3, 15];
+                        _a.label = 11;
+                    case 11:
+                        _a.trys.push([11, 13, , 14]);
+                        return [4, message_1.message.find(obj, null, { limit: parseInt(obj['limit']) })];
+                    case 12:
                         cab = _a.sent();
-                        _a.label = 9;
-                    case 9: return [2, { data: cab }];
+                        return [3, 14];
+                    case 13:
+                        error_15 = _a.sent();
+                        return [2, ""];
+                    case 14: return [3, 18];
+                    case 15:
+                        _a.trys.push([15, 17, , 18]);
+                        return [4, message_1.message.find(obj)];
+                    case 16:
+                        cab = _a.sent();
+                        return [3, 18];
+                    case 17:
+                        error_16 = _a.sent();
+                        return [2, ""];
+                    case 18: return [2, { data: cab }];
                 }
             });
         });
@@ -820,7 +920,7 @@ var AutoController = (function () {
     };
     AutoController.prototype.skyuserget = function (data) {
         return __awaiter(this, void 0, void 0, function () {
-            var obj, keyword, prop, cab, obj2, arr, _i, arr_25, i;
+            var obj, keyword, prop, cab, obj2, arr, _i, arr_25, i, error_17, error_18, error_19, error_20;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -830,36 +930,61 @@ var AutoController = (function () {
                             obj[prop] = data[prop];
                             keyword.push(prop);
                         }
-                        if (!keyword.includes('back')) return [3, 5];
+                        if (!keyword.includes('back')) return [3, 10];
                         obj2 = {};
-                        if (!obj['back'].includes(',')) return [3, 2];
+                        if (!obj['back'].includes(',')) return [3, 5];
                         arr = obj['back'].split(',');
                         for (_i = 0, arr_25 = arr; _i < arr_25.length; _i++) {
                             i = arr_25[_i];
                             obj2[i] = 1;
                         }
-                        return [4, skyuser_1.skyuser.find(obj, obj2, { limit: parseInt(obj['limit']) })];
+                        _a.label = 1;
                     case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4, skyuser_1.skyuser.find(obj, obj2, { limit: parseInt(obj['limit']) })];
+                    case 2:
                         cab = _a.sent();
                         return [3, 4];
-                    case 2:
-                        obj2 = obj['back'];
-                        return [4, skyuser_1.skyuser.find(obj, obj2, { limit: parseInt(obj['limit']) })];
                     case 3:
-                        cab = _a.sent();
-                        _a.label = 4;
+                        error_17 = _a.sent();
+                        return [2, ""];
                     case 4: return [3, 9];
                     case 5:
-                        if (!keyword.includes('limit')) return [3, 7];
-                        return [4, skyuser_1.skyuser.find(obj, null, { limit: parseInt(obj['limit']) })];
+                        obj2 = obj['back'];
+                        _a.label = 6;
                     case 6:
+                        _a.trys.push([6, 8, , 9]);
+                        return [4, skyuser_1.skyuser.find(obj, obj2, { limit: parseInt(obj['limit']) })];
+                    case 7:
                         cab = _a.sent();
                         return [3, 9];
-                    case 7: return [4, skyuser_1.skyuser.find(obj)];
                     case 8:
+                        error_18 = _a.sent();
+                        return [2, ""];
+                    case 9: return [3, 18];
+                    case 10:
+                        if (!keyword.includes('limit')) return [3, 15];
+                        _a.label = 11;
+                    case 11:
+                        _a.trys.push([11, 13, , 14]);
+                        return [4, skyuser_1.skyuser.find(obj, null, { limit: parseInt(obj['limit']) })];
+                    case 12:
                         cab = _a.sent();
-                        _a.label = 9;
-                    case 9: return [2, { data: cab }];
+                        return [3, 14];
+                    case 13:
+                        error_19 = _a.sent();
+                        return [2, ""];
+                    case 14: return [3, 18];
+                    case 15:
+                        _a.trys.push([15, 17, , 18]);
+                        return [4, skyuser_1.skyuser.find(obj)];
+                    case 16:
+                        cab = _a.sent();
+                        return [3, 18];
+                    case 17:
+                        error_20 = _a.sent();
+                        return [2, ""];
+                    case 18: return [2, { data: cab }];
                 }
             });
         });
@@ -1009,7 +1134,7 @@ var AutoController = (function () {
     };
     AutoController.prototype.zhibolistget = function (data) {
         return __awaiter(this, void 0, void 0, function () {
-            var obj, keyword, prop, cab, obj2, arr, _i, arr_31, i;
+            var obj, keyword, prop, cab, obj2, arr, _i, arr_31, i, error_21, error_22, error_23, error_24;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -1019,36 +1144,61 @@ var AutoController = (function () {
                             obj[prop] = data[prop];
                             keyword.push(prop);
                         }
-                        if (!keyword.includes('back')) return [3, 5];
+                        if (!keyword.includes('back')) return [3, 10];
                         obj2 = {};
-                        if (!obj['back'].includes(',')) return [3, 2];
+                        if (!obj['back'].includes(',')) return [3, 5];
                         arr = obj['back'].split(',');
                         for (_i = 0, arr_31 = arr; _i < arr_31.length; _i++) {
                             i = arr_31[_i];
                             obj2[i] = 1;
                         }
-                        return [4, zhibolist_1.zhibolist.find(obj, obj2, { limit: parseInt(obj['limit']) })];
+                        _a.label = 1;
                     case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4, zhibolist_1.zhibolist.find(obj, obj2, { limit: parseInt(obj['limit']) })];
+                    case 2:
                         cab = _a.sent();
                         return [3, 4];
-                    case 2:
-                        obj2 = obj['back'];
-                        return [4, zhibolist_1.zhibolist.find(obj, obj2, { limit: parseInt(obj['limit']) })];
                     case 3:
-                        cab = _a.sent();
-                        _a.label = 4;
+                        error_21 = _a.sent();
+                        return [2, ""];
                     case 4: return [3, 9];
                     case 5:
-                        if (!keyword.includes('limit')) return [3, 7];
-                        return [4, zhibolist_1.zhibolist.find(obj, null, { limit: parseInt(obj['limit']) })];
+                        obj2 = obj['back'];
+                        _a.label = 6;
                     case 6:
+                        _a.trys.push([6, 8, , 9]);
+                        return [4, zhibolist_1.zhibolist.find(obj, obj2, { limit: parseInt(obj['limit']) })];
+                    case 7:
                         cab = _a.sent();
                         return [3, 9];
-                    case 7: return [4, zhibolist_1.zhibolist.find(obj)];
                     case 8:
+                        error_22 = _a.sent();
+                        return [2, ""];
+                    case 9: return [3, 18];
+                    case 10:
+                        if (!keyword.includes('limit')) return [3, 15];
+                        _a.label = 11;
+                    case 11:
+                        _a.trys.push([11, 13, , 14]);
+                        return [4, zhibolist_1.zhibolist.find(obj, null, { limit: parseInt(obj['limit']) })];
+                    case 12:
                         cab = _a.sent();
-                        _a.label = 9;
-                    case 9: return [2, { data: cab }];
+                        return [3, 14];
+                    case 13:
+                        error_23 = _a.sent();
+                        return [2, ""];
+                    case 14: return [3, 18];
+                    case 15:
+                        _a.trys.push([15, 17, , 18]);
+                        return [4, zhibolist_1.zhibolist.find(obj)];
+                    case 16:
+                        cab = _a.sent();
+                        return [3, 18];
+                    case 17:
+                        error_24 = _a.sent();
+                        return [2, ""];
+                    case 18: return [2, { data: cab }];
                 }
             });
         });
@@ -1198,7 +1348,7 @@ var AutoController = (function () {
     };
     AutoController.prototype.zhibolist_longtimeget = function (data) {
         return __awaiter(this, void 0, void 0, function () {
-            var obj, keyword, prop, cab, obj2, arr, _i, arr_37, i;
+            var obj, keyword, prop, cab, obj2, arr, _i, arr_37, i, error_25, error_26, error_27, error_28;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -1208,36 +1358,61 @@ var AutoController = (function () {
                             obj[prop] = data[prop];
                             keyword.push(prop);
                         }
-                        if (!keyword.includes('back')) return [3, 5];
+                        if (!keyword.includes('back')) return [3, 10];
                         obj2 = {};
-                        if (!obj['back'].includes(',')) return [3, 2];
+                        if (!obj['back'].includes(',')) return [3, 5];
                         arr = obj['back'].split(',');
                         for (_i = 0, arr_37 = arr; _i < arr_37.length; _i++) {
                             i = arr_37[_i];
                             obj2[i] = 1;
                         }
-                        return [4, zhibolist_longtime_1.zhibolist_longtime.find(obj, obj2, { limit: parseInt(obj['limit']) })];
+                        _a.label = 1;
                     case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4, zhibolist_longtime_1.zhibolist_longtime.find(obj, obj2, { limit: parseInt(obj['limit']) })];
+                    case 2:
                         cab = _a.sent();
                         return [3, 4];
-                    case 2:
-                        obj2 = obj['back'];
-                        return [4, zhibolist_longtime_1.zhibolist_longtime.find(obj, obj2, { limit: parseInt(obj['limit']) })];
                     case 3:
-                        cab = _a.sent();
-                        _a.label = 4;
+                        error_25 = _a.sent();
+                        return [2, ""];
                     case 4: return [3, 9];
                     case 5:
-                        if (!keyword.includes('limit')) return [3, 7];
-                        return [4, zhibolist_longtime_1.zhibolist_longtime.find(obj, null, { limit: parseInt(obj['limit']) })];
+                        obj2 = obj['back'];
+                        _a.label = 6;
                     case 6:
+                        _a.trys.push([6, 8, , 9]);
+                        return [4, zhibolist_longtime_1.zhibolist_longtime.find(obj, obj2, { limit: parseInt(obj['limit']) })];
+                    case 7:
                         cab = _a.sent();
                         return [3, 9];
-                    case 7: return [4, zhibolist_longtime_1.zhibolist_longtime.find(obj)];
                     case 8:
+                        error_26 = _a.sent();
+                        return [2, ""];
+                    case 9: return [3, 18];
+                    case 10:
+                        if (!keyword.includes('limit')) return [3, 15];
+                        _a.label = 11;
+                    case 11:
+                        _a.trys.push([11, 13, , 14]);
+                        return [4, zhibolist_longtime_1.zhibolist_longtime.find(obj, null, { limit: parseInt(obj['limit']) })];
+                    case 12:
                         cab = _a.sent();
-                        _a.label = 9;
-                    case 9: return [2, { data: cab }];
+                        return [3, 14];
+                    case 13:
+                        error_27 = _a.sent();
+                        return [2, ""];
+                    case 14: return [3, 18];
+                    case 15:
+                        _a.trys.push([15, 17, , 18]);
+                        return [4, zhibolist_longtime_1.zhibolist_longtime.find(obj)];
+                    case 16:
+                        cab = _a.sent();
+                        return [3, 18];
+                    case 17:
+                        error_28 = _a.sent();
+                        return [2, ""];
+                    case 18: return [2, { data: cab }];
                 }
             });
         });
@@ -1387,7 +1562,7 @@ var AutoController = (function () {
     };
     AutoController.prototype.userget = function (data) {
         return __awaiter(this, void 0, void 0, function () {
-            var obj, keyword, prop, cab, obj2, arr, _i, arr_43, i;
+            var obj, keyword, prop, cab, obj2, arr, _i, arr_43, i, error_29, error_30, error_31, error_32;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -1397,36 +1572,61 @@ var AutoController = (function () {
                             obj[prop] = data[prop];
                             keyword.push(prop);
                         }
-                        if (!keyword.includes('back')) return [3, 5];
+                        if (!keyword.includes('back')) return [3, 10];
                         obj2 = {};
-                        if (!obj['back'].includes(',')) return [3, 2];
+                        if (!obj['back'].includes(',')) return [3, 5];
                         arr = obj['back'].split(',');
                         for (_i = 0, arr_43 = arr; _i < arr_43.length; _i++) {
                             i = arr_43[_i];
                             obj2[i] = 1;
                         }
-                        return [4, user_1.user.find(obj, obj2, { limit: parseInt(obj['limit']) })];
+                        _a.label = 1;
                     case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4, user_1.user.find(obj, obj2, { limit: parseInt(obj['limit']) })];
+                    case 2:
                         cab = _a.sent();
                         return [3, 4];
-                    case 2:
-                        obj2 = obj['back'];
-                        return [4, user_1.user.find(obj, obj2, { limit: parseInt(obj['limit']) })];
                     case 3:
-                        cab = _a.sent();
-                        _a.label = 4;
+                        error_29 = _a.sent();
+                        return [2, ""];
                     case 4: return [3, 9];
                     case 5:
-                        if (!keyword.includes('limit')) return [3, 7];
-                        return [4, user_1.user.find(obj, null, { limit: parseInt(obj['limit']) })];
+                        obj2 = obj['back'];
+                        _a.label = 6;
                     case 6:
+                        _a.trys.push([6, 8, , 9]);
+                        return [4, user_1.user.find(obj, obj2, { limit: parseInt(obj['limit']) })];
+                    case 7:
                         cab = _a.sent();
                         return [3, 9];
-                    case 7: return [4, user_1.user.find(obj)];
                     case 8:
+                        error_30 = _a.sent();
+                        return [2, ""];
+                    case 9: return [3, 18];
+                    case 10:
+                        if (!keyword.includes('limit')) return [3, 15];
+                        _a.label = 11;
+                    case 11:
+                        _a.trys.push([11, 13, , 14]);
+                        return [4, user_1.user.find(obj, null, { limit: parseInt(obj['limit']) })];
+                    case 12:
                         cab = _a.sent();
-                        _a.label = 9;
-                    case 9: return [2, { data: cab }];
+                        return [3, 14];
+                    case 13:
+                        error_31 = _a.sent();
+                        return [2, ""];
+                    case 14: return [3, 18];
+                    case 15:
+                        _a.trys.push([15, 17, , 18]);
+                        return [4, user_1.user.find(obj)];
+                    case 16:
+                        cab = _a.sent();
+                        return [3, 18];
+                    case 17:
+                        error_32 = _a.sent();
+                        return [2, ""];
+                    case 18: return [2, { data: cab }];
                 }
             });
         });

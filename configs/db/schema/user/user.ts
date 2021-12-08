@@ -14,7 +14,8 @@ var UserSchema = new Schema({
     jd: { type: Object },
     skyadmin: { type: String, default: "user" },
     collect: { type: Object },
-    other: { type: Object }
+    other: { type: Object },
+    md5id: { type: String },
 });
 
 export const user = mongoose.model('User', UserSchema);

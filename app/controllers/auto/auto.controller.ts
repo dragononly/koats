@@ -37,17 +37,33 @@ import { user } from '../../../configs/db/schema/user/user'
                     for (const i of arr) {
                         obj2[i] = 1
                     }
-                    cab = await auto.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    try {
+                        cab = await auto.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    }catch (error){
+                        return ""
+                    }
                 } else {
                     obj2 = obj['back']
-                    cab = await auto.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    try {
+                        cab = await auto.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    }catch (error){
+                        return ""
+                    } 
                 }
             }
             else if (keyword.includes('limit')) {
-                cab = await auto.find(obj, null, { limit: parseInt(obj['limit']) })
+                try {
+                    cab = await auto.find(obj, null, { limit: parseInt(obj['limit']) })
+                }catch (error){
+                    return ""
+                }
             }
             else {
-                cab = await auto.find(obj)
+                try {
+                    cab = await auto.find(obj)
+                }catch (error){
+                    return ""
+                }
             }
             return { data: cab };
         }
@@ -165,17 +181,33 @@ import { user } from '../../../configs/db/schema/user/user'
                     for (const i of arr) {
                         obj2[i] = 1
                     }
-                    cab = await test.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    try {
+                        cab = await test.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    }catch (error){
+                        return ""
+                    }
                 } else {
                     obj2 = obj['back']
-                    cab = await test.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    try {
+                        cab = await test.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    }catch (error){
+                        return ""
+                    } 
                 }
             }
             else if (keyword.includes('limit')) {
-                cab = await test.find(obj, null, { limit: parseInt(obj['limit']) })
+                try {
+                    cab = await test.find(obj, null, { limit: parseInt(obj['limit']) })
+                }catch (error){
+                    return ""
+                }
             }
             else {
-                cab = await test.find(obj)
+                try {
+                    cab = await test.find(obj)
+                }catch (error){
+                    return ""
+                }
             }
             return { data: cab };
         }
@@ -293,17 +325,33 @@ import { user } from '../../../configs/db/schema/user/user'
                     for (const i of arr) {
                         obj2[i] = 1
                     }
-                    cab = await livegroup.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    try {
+                        cab = await livegroup.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    }catch (error){
+                        return ""
+                    }
                 } else {
                     obj2 = obj['back']
-                    cab = await livegroup.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    try {
+                        cab = await livegroup.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    }catch (error){
+                        return ""
+                    } 
                 }
             }
             else if (keyword.includes('limit')) {
-                cab = await livegroup.find(obj, null, { limit: parseInt(obj['limit']) })
+                try {
+                    cab = await livegroup.find(obj, null, { limit: parseInt(obj['limit']) })
+                }catch (error){
+                    return ""
+                }
             }
             else {
-                cab = await livegroup.find(obj)
+                try {
+                    cab = await livegroup.find(obj)
+                }catch (error){
+                    return ""
+                }
             }
             return { data: cab };
         }
@@ -421,17 +469,33 @@ import { user } from '../../../configs/db/schema/user/user'
                     for (const i of arr) {
                         obj2[i] = 1
                     }
-                    cab = await message.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    try {
+                        cab = await message.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    }catch (error){
+                        return ""
+                    }
                 } else {
                     obj2 = obj['back']
-                    cab = await message.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    try {
+                        cab = await message.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    }catch (error){
+                        return ""
+                    } 
                 }
             }
             else if (keyword.includes('limit')) {
-                cab = await message.find(obj, null, { limit: parseInt(obj['limit']) })
+                try {
+                    cab = await message.find(obj, null, { limit: parseInt(obj['limit']) })
+                }catch (error){
+                    return ""
+                }
             }
             else {
-                cab = await message.find(obj)
+                try {
+                    cab = await message.find(obj)
+                }catch (error){
+                    return ""
+                }
             }
             return { data: cab };
         }
@@ -549,17 +613,33 @@ import { user } from '../../../configs/db/schema/user/user'
                     for (const i of arr) {
                         obj2[i] = 1
                     }
-                    cab = await skyuser.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    try {
+                        cab = await skyuser.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    }catch (error){
+                        return ""
+                    }
                 } else {
                     obj2 = obj['back']
-                    cab = await skyuser.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    try {
+                        cab = await skyuser.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    }catch (error){
+                        return ""
+                    } 
                 }
             }
             else if (keyword.includes('limit')) {
-                cab = await skyuser.find(obj, null, { limit: parseInt(obj['limit']) })
+                try {
+                    cab = await skyuser.find(obj, null, { limit: parseInt(obj['limit']) })
+                }catch (error){
+                    return ""
+                }
             }
             else {
-                cab = await skyuser.find(obj)
+                try {
+                    cab = await skyuser.find(obj)
+                }catch (error){
+                    return ""
+                }
             }
             return { data: cab };
         }
@@ -677,17 +757,33 @@ import { user } from '../../../configs/db/schema/user/user'
                     for (const i of arr) {
                         obj2[i] = 1
                     }
-                    cab = await zhibolist.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    try {
+                        cab = await zhibolist.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    }catch (error){
+                        return ""
+                    }
                 } else {
                     obj2 = obj['back']
-                    cab = await zhibolist.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    try {
+                        cab = await zhibolist.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    }catch (error){
+                        return ""
+                    } 
                 }
             }
             else if (keyword.includes('limit')) {
-                cab = await zhibolist.find(obj, null, { limit: parseInt(obj['limit']) })
+                try {
+                    cab = await zhibolist.find(obj, null, { limit: parseInt(obj['limit']) })
+                }catch (error){
+                    return ""
+                }
             }
             else {
-                cab = await zhibolist.find(obj)
+                try {
+                    cab = await zhibolist.find(obj)
+                }catch (error){
+                    return ""
+                }
             }
             return { data: cab };
         }
@@ -805,17 +901,33 @@ import { user } from '../../../configs/db/schema/user/user'
                     for (const i of arr) {
                         obj2[i] = 1
                     }
-                    cab = await zhibolist_longtime.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    try {
+                        cab = await zhibolist_longtime.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    }catch (error){
+                        return ""
+                    }
                 } else {
                     obj2 = obj['back']
-                    cab = await zhibolist_longtime.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    try {
+                        cab = await zhibolist_longtime.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    }catch (error){
+                        return ""
+                    } 
                 }
             }
             else if (keyword.includes('limit')) {
-                cab = await zhibolist_longtime.find(obj, null, { limit: parseInt(obj['limit']) })
+                try {
+                    cab = await zhibolist_longtime.find(obj, null, { limit: parseInt(obj['limit']) })
+                }catch (error){
+                    return ""
+                }
             }
             else {
-                cab = await zhibolist_longtime.find(obj)
+                try {
+                    cab = await zhibolist_longtime.find(obj)
+                }catch (error){
+                    return ""
+                }
             }
             return { data: cab };
         }
@@ -933,17 +1045,33 @@ import { user } from '../../../configs/db/schema/user/user'
                     for (const i of arr) {
                         obj2[i] = 1
                     }
-                    cab = await user.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    try {
+                        cab = await user.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    }catch (error){
+                        return ""
+                    }
                 } else {
                     obj2 = obj['back']
-                    cab = await user.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    try {
+                        cab = await user.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    }catch (error){
+                        return ""
+                    } 
                 }
             }
             else if (keyword.includes('limit')) {
-                cab = await user.find(obj, null, { limit: parseInt(obj['limit']) })
+                try {
+                    cab = await user.find(obj, null, { limit: parseInt(obj['limit']) })
+                }catch (error){
+                    return ""
+                }
             }
             else {
-                cab = await user.find(obj)
+                try {
+                    cab = await user.find(obj)
+                }catch (error){
+                    return ""
+                }
             }
             return { data: cab };
         }

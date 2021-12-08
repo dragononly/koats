@@ -84,17 +84,33 @@ import { ${mini} } from '../../../configs/db/schema/${i}'`
                     for (const i of arr) {
                         obj2[i] = 1
                     }
-                    cab = await ${mini}.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    try {
+                        cab = await ${mini}.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    }catch (error){
+                        return ""
+                    }
                 } else {
                     obj2 = obj['back']
-                    cab = await ${mini}.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    try {
+                        cab = await ${mini}.find(obj, obj2, { limit: parseInt(obj['limit']) })
+                    }catch (error){
+                        return ""
+                    } 
                 }
             }
             else if (keyword.includes('limit')) {
-                cab = await ${mini}.find(obj, null, { limit: parseInt(obj['limit']) })
+                try {
+                    cab = await ${mini}.find(obj, null, { limit: parseInt(obj['limit']) })
+                }catch (error){
+                    return ""
+                }
             }
             else {
-                cab = await ${mini}.find(obj)
+                try {
+                    cab = await ${mini}.find(obj)
+                }catch (error){
+                    return ""
+                }
             }
             return { data: cab };
         }

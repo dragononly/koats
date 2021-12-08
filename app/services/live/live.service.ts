@@ -5,6 +5,7 @@ import { skyuser } from '../../../configs/db/schema/live/skyuser'
 import { livegroup } from '../../../configs/db/schema/live/livegroup'
 import { PrismaClient } from '@prisma/client'
 import mongoose from 'configs/db/mongo'
+import { Md5 } from 'ts-md5'
 const prisma = new PrismaClient()
 
 
@@ -34,6 +35,39 @@ export class LiveService {
     const cab = zhibolist.updateOne({ _id: data.id }, { url: data.url });
     return cab;
   }
+
+
+  //知学云的接口都在这
+  //知学云添加直播到数据库
+  async zhixueyun_addlive(data: { livename: any; starttime: any; endtime: any }): Promise<any> {
+    const newval = {
+      name: data.livename,
+      starttime: [data.starttime, data.endtime],
+    };
+
+    const createdCat = new zhibolist(newval);
+    const cab = await createdCat.save();
+    //这里把_idmd5一下保存
+    const cab2 = await zhibolist.updateOne({ _id: cab._id }, { md5id: Md5.hashStr(cab._id.toString()) })
+
+    if (cab2) {
+      const re = { status: "ok", zhiboid: cab._id }
+      return re;
+    }
+  }
+
+  //修改直播
+  async zhixueyun_changlive(id: string, data: any): Promise<any> {
+    let cab = await zhibolist.updateOne({ _id: id }, { 'name': data.name, starttime: [data.starttime, data.endtime] })
+    return cab
+  }
+
+
+  //获取直播视频地址
+  async zhixueyun_getvideo(data): Promise<any> {
+
+  }
+
 
 
 
@@ -146,7 +180,13 @@ export class LiveService {
 
   //通过groupname去查询自己的直播名
   async searchidzhibo(data): Promise<any> {
+
+
+
     const cab = await zhibolist.findById({ _id: data._id });
+
+
+
     return cab;
   }
 
@@ -167,7 +207,7 @@ export class LiveService {
 
   //通过eid去查询信息
   async eid(data: any): Promise<any> {
-    const cab = await skyuser.findOne({ eid: (data.eid).toString() });
+    const cab = await skyuser.findOne({ eid: data.eid });
     return cab;
   }
 
@@ -197,6 +237,8 @@ export class LiveService {
   //查询直播列表groupname
   async findzhibo_groupname(): Promise<any> {
     const cab = await zhibolist.find({}, { group: 1 });
+
+
     return cab;
   }
 
@@ -431,8 +473,8 @@ export class LiveService {
         department: '',
         departmentchild: '',
         name: '',
-        eid: 0,
-        rank_id: 0,
+        eid: '0',
+        rank_id: '0',
       };
 
       // {
@@ -442,9 +484,9 @@ export class LiveService {
       //   "depart_id": 13020395,
       //   "rank_id": 12000104
       // }
-      user.eid = iterator.eid;
+      user.eid = iterator.eid.toString();
       user.name = iterator.user_name;
-      user.rank_id = iterator.rank_id;
+      user.rank_id = iterator.rank_id.toString();
 
       if (iterator.depart_id.toString().length < 8) {
         continue;

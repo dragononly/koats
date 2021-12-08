@@ -54,7 +54,6 @@ var services_1 = require("../../services/index");
 var dec_service_1 = require("../../services/tools/dec.service");
 var typedi_1 = require("typedi");
 var md5_1 = require("ts-md5/dist/md5");
-var md5 = new md5_1.Md5();
 var LiveController = (function () {
     function LiveController(catsService, decService) {
         this.catsService = catsService;
@@ -99,6 +98,44 @@ var LiveController = (function () {
                         cab = _a.sent();
                         return [2, { data: cab }];
                 }
+            });
+        });
+    };
+    LiveController.prototype.zhixueyun_addlive = function (data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var cab;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4, this.catsService.zhixueyun_addlive(data)];
+                    case 1:
+                        cab = _a.sent();
+                        return [2, { data: cab }];
+                }
+            });
+        });
+    };
+    LiveController.prototype.zhixueyun_changlive = function (id, data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var cab;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4, this.catsService.zhixueyun_changlive(id, data)];
+                    case 1:
+                        cab = _a.sent();
+                        return [2, { data: cab }];
+                }
+            });
+        });
+    };
+    LiveController.prototype.zhixueyun_watch = function (response, data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var eid, zhiboid, eidkey;
+            return __generator(this, function (_a) {
+                console.log(data);
+                eid = data.eid, zhiboid = md5_1.Md5.hashStr(data.zhiboid), eidkey = md5_1.Md5.hashStr(data.eid);
+                console.log(eidkey);
+                response.redirect("http://127.0.0.1:3000/#/center?zhiboid=" + zhiboid + "&eid=" + eid + "&key=" + eidkey);
+                return [2];
             });
         });
     };
@@ -461,6 +498,27 @@ var LiveController = (function () {
         __metadata("design:paramtypes", [Object]),
         __metadata("design:returntype", Promise)
     ], LiveController.prototype, "livegroup");
+    __decorate([
+        routing_controllers_1.Post('zhixueyun/addlive'),
+        __param(0, routing_controllers_1.Body()),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object]),
+        __metadata("design:returntype", Promise)
+    ], LiveController.prototype, "zhixueyun_addlive");
+    __decorate([
+        routing_controllers_1.Put('zhixueyun/changlive/:id'),
+        __param(0, routing_controllers_1.Param('id')), __param(1, routing_controllers_1.Body()),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [String, Object]),
+        __metadata("design:returntype", Promise)
+    ], LiveController.prototype, "zhixueyun_changlive");
+    __decorate([
+        routing_controllers_1.Get("zhixueyun/watch"),
+        __param(0, routing_controllers_1.Res()), __param(1, routing_controllers_1.QueryParams()),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object, Object]),
+        __metadata("design:returntype", Promise)
+    ], LiveController.prototype, "zhixueyun_watch");
     __decorate([
         routing_controllers_1.Post('live/findzhibo_groupname'),
         __param(0, routing_controllers_1.Body()),

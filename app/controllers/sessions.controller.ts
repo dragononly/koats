@@ -23,6 +23,7 @@ export class SessionsController {
   @Get('')
   async query(@Res() response: any) {
     response.redirect('/public/zhibo/index.html');
+    // response.redirect('http://www.baidu.com');
 
 
     // let cab = await user.findOne({})

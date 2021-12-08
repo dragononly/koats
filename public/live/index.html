@@ -108,6 +108,7 @@
 
         #video {
             width: 100%;
+            height: 100%;
         }
 
         .embed-responsive {
@@ -262,11 +263,11 @@
                 <hr />
             </div>
             <div id="error-hls-js" class="hide">
-                Your browser doesn't support hls.js engine. P2P disabled.<br />
+                <!-- Your browser doesn't support hls.js engine. P2P disabled.<br />
                 Read more at
                 <a href="https://en.wikipedia.org/wiki/Media_Source_Extensions" target="_blank">Media Source
                     Extensions</a>.
-                <hr />
+                <hr /> -->
             </div>
             <div id="error-shakaplayer" class="hide">
                 Your browser doesn't support Shaka Player engine. P2P disabled.<br />
@@ -287,7 +288,7 @@
                             <div id="announce"></div>
                         </div>
                         <div id="chart_container"
-                            style="position: relative;width: 100%;position: absolute;top: 0;background: #fff;opacity: 0.4;z-index: 2;">
+                            style="position: relative;width: 100%;position: absolute;top: 0;background: #fff;opacity: 0.8;z-index: 2;">
                             <div id="legend"></div>
                             <div id="legend-totals"></div>
                             <div id="y_axis"></div>
@@ -433,7 +434,7 @@
 
                     this.isP2PSupported = p2pml.core.HybridLoader.isSupported();
                     if (!this.isP2PSupported) {
-                        document.querySelector("#error-webrtc-data-chanconfignels").classList.remove("hide");
+                        // document.querySelector("#error-webrtc-data-chanconfignels").classList.remove("hide");
                     }
 
                     if (location.protocol == "https:") {
@@ -455,10 +456,15 @@
                         this.videoUrl = l
 
                     } else {
-                        this.videoUrl = "http://xiong.pccpa.cn/api/v3/file/get/26/150416M.mp4?sign=0ZcuV4EkZPBlkslBUIaeqAVrzSb67nOw62yV5R33KDY%3D%3A0"
+                        this.videoUrl = "https://wowza.peer5.com/live/smil:bbb_abr.smil/playlist.m3u8"
                     }
 
                     this.playerType = videoUrlForm.type.value;
+                    // if (!this.isP2PSupported) {
+                    //     this.playerType = 'shakaplayer';
+                    // } else {
+
+                    // }
                     this.videoContainer = document.getElementById("video_container");
 
                     this.loadSpeedTimespan = 10; // seconds
@@ -513,16 +519,22 @@
                     }
                     const config = {
                         segments: {
-                            swarmId: "http://cdn.pccpa.cn:7002/live/movie.m3u8 " // any unique string
+                            swarmId: "http://cdn.pccpa.cn:7002/live/movie.m3u8" // any unique string
                         },
                         loader: {
                             trackerAnnounce: [
-                                "wss://personal.tracker1.com",
-                                "wss://personal.tracker2.com"
+                                "ws://cdn.pccpa.cn:8000",
+                                "wss://tracker.openwebtorrent.com",
+                                "udp://93.158.213.92:1337/announce",
+                                "udp://151.80.120.113:2810/announce",
+                                "udp://open.tracker.cl:1337/announce",
+                                "http://openbittorrent.com:80/announce"
                             ],
                             rtcConfig: {
                                 iceServers: [
-                                    { urls: "stun:stun.l.google.com:19302" },
+
+                                    { urls: "stun:cdn.pccpa.cn:3478" },
+                                    // { urls: "stun:stun.l.google.com:19302" },
                                     { urls: "stun:global.stun.twilio.com:3478?transport=udp" }
                                 ]
                             }
@@ -662,8 +674,8 @@
                     video.id = "video";
                     video.volume = 0;
                     video.setAttribute("playsinline", "");
-                    video.setAttribute("muted", "");
-                    video.setAttribute("autoplay", "");
+                    video.setAttribute("muted", true);
+                    video.setAttribute("autoplay", true);
                     video.setAttribute("controls", "");
                     this.videoContainer.appendChild(video);
 
@@ -704,16 +716,17 @@
                     outer.appendChild(video);
                     this.videoContainer.appendChild(outer);
 
+                    //设置自动播放
                     var setup = {
                         parentId: "#video",
                         plugins: [],
                         source: this.videoUrl,
                         width: "100%",
                         height: "100%",
-                        muted: false,
-                        mute: false,
+                        // muted: true,
+                        mute: true,
                         autoPlay: true,
-                        'webkit- playsinline': true,
+                        'webkit-playsinline': true,
                         'x5-video-player-type': true,
                         'x5-video-orientation': "portraint",
                         playback: {
@@ -764,8 +777,7 @@
                     video.id = "video";
                     video.volume = 0;
                     video.setAttribute("playsinline", "");
-                    video.setAttribute("muted", "");
-                    video.setAttribute("autoplay", "");
+
                     this.videoContainer.appendChild(video);
 
                     await scriptPromise;
@@ -1158,10 +1170,10 @@
                         min: "auto",
                         strokeWidth: 1,
                         series: [
-                            { name: "Upload P2P", color: "#88eab9", data: [], renderer: "area" },
-                            { name: " - P2P", color: "#88b9ea", data: [], renderer: "area" },
-                            { name: " - HTTP", color: "#eae288", data: [], renderer: "area" },
-                            { name: "Download", color: "#f64", data: [], renderer: "line" },
+                            { name: "我提供给附近人资源", color: "#88eab9", data: [], renderer: "area" },
+                            { name: "附近人给我的带宽(免网络)", color: "#88b9ea", data: [], renderer: "area" },
+                            { name: "网络下载速度", color: "#eae288", data: [], renderer: "area" },
+                            { name: "总下载速度", color: "#f64", data: [], renderer: "line" },
                         ],
                     };
 
@@ -1278,24 +1290,24 @@
 
                     if (totalMb != 0) {
                         this.legendTotals.lines[0].element.childNodes[1].textContent =
-                            "Download - " + Number(totalMb).toFixed(1) + " MiB";
+                            "下载总量 - " + Number(totalMb).toFixed(1) + " MiB";
 
                         this.legendTotals.lines[1].element.childNodes[1].textContent =
-                            " - HTTP - " +
+                            "网络下载 - " +
                             Number(httpMb).toFixed(1) +
                             " MiB - " +
                             Number((httpMb * 100) / totalMb).toFixed(0) +
                             "%";
 
                         this.legendTotals.lines[2].element.childNodes[1].textContent =
-                            " - P2P - " +
+                            "附近人提供的流量(免网络) - " +
                             Number(p2pMb).toFixed(1) +
                             " MiB - " +
                             Number((p2pMb * 100) / totalMb).toFixed(0) +
                             "%";
 
                         this.legendTotals.lines[3].element.childNodes[1].textContent =
-                            "Upload P2P - " + Number(uploadMb).toFixed(1) + " MiB";
+                            "我给附近人的流量 - " + Number(uploadMb).toFixed(1) + " MiB";
                     }
                 }
 

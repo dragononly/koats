@@ -13,9 +13,12 @@ var AutoAssignJSONInterceptor = (function () {
     function AutoAssignJSONInterceptor() {
     }
     AutoAssignJSONInterceptor.prototype.intercept = function (action, content) {
-        if (typeof content === 'object')
-            return JSON.stringify(Object.assign({ message: 'ok' }, content));
-        return JSON.stringify({ message: content });
+        if (typeof content === 'object') {
+            return JSON.stringify(Object.assign({ message: 'jsonok' }, content));
+        }
+        else {
+            return JSON.stringify({ message: content });
+        }
     };
     AutoAssignJSONInterceptor = __decorate([
         routing_controllers_1.Interceptor(),

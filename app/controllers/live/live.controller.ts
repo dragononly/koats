@@ -8,14 +8,17 @@ import {
     Req,
     QueryParams,
     Param,
-    Body
+    Body,
+    Redirect,
+    Res,
+    Put
 } from 'routing-controllers'
 import Request from "koa"
 import { LiveService } from '../../services'
 import { decService } from '../../services/tools/dec.service'
 import { Service } from 'typedi'
 import { Md5 } from 'ts-md5/dist/md5';
-const md5 = new Md5();
+
 
 @JsonController()
 @Service()
@@ -49,8 +52,44 @@ export class LiveController {
     @Post('live/livegroup')
     async livegroup(@Body() data: any) {
         const cab = await this.catsService.livegroup(data);
+
         return { data: cab };
     }
+
+    //知学云的接口都在这
+    //天健直播
+    //创建直播
+    @Post('zhixueyun/addlive')
+    async zhixueyun_addlive(@Body() data: any) {
+        const cab = await this.catsService.zhixueyun_addlive(data);
+
+
+        return { data: cab };
+    }
+
+    @Put('zhixueyun/changlive/:id')
+    async zhixueyun_changlive(@Param('id') id: string, @Body() data: any) {
+        const cab = await this.catsService.zhixueyun_changlive(id, data);
+        return { data: cab };
+    }
+
+    @Get("zhixueyun/watch")
+    async zhixueyun_watch(@Res() response: any, @QueryParams() data: any) {
+        console.log(data);
+
+        let eid = data.eid, zhiboid = Md5.hashStr(data.zhiboid), eidkey = Md5.hashStr(data.eid)
+        console.log(eidkey);
+
+        // response.redirect(`/public/zhibo/index.html#/center?urlid=${zhiboid}&id=${eid}`);
+        response.redirect(`http://127.0.0.1:3000/#/center?zhiboid=${zhiboid}&eid=${eid}&key=${eidkey}`)
+
+    }
+
+
+
+
+
+
 
     //直播list只返回groupname arr
     @Post('live/findzhibo_groupname')
@@ -151,7 +190,7 @@ export class LiveController {
     @Post('live/eid')
     async eid(@Body() data: any) {
         const cab = await this.catsService.eid(data);
-        return { data: cab };
+        return { data: cab }
     }
     //更新直播的组权限
     @Post('live/updatezhibogroup')

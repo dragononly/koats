@@ -53,6 +53,7 @@ var skyuser_1 = require("../../../configs/db/schema/live/skyuser");
 var livegroup_1 = require("../../../configs/db/schema/live/livegroup");
 var client_1 = require("@prisma/client");
 var mongo_1 = __importDefault(require("../../../configs/db/mongo"));
+var ts_md5_1 = require("ts-md5");
 var prisma = new client_1.PrismaClient();
 var LiveService = (function () {
     function LiveService() {
@@ -71,6 +72,52 @@ var LiveService = (function () {
             return __generator(this, function (_a) {
                 cab = zhibolist_1.zhibolist.updateOne({ _id: data.id }, { url: data.url });
                 return [2, cab];
+            });
+        });
+    };
+    LiveService.prototype.zhixueyun_addlive = function (data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var newval, createdCat, cab, cab2, re;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        newval = {
+                            name: data.livename,
+                            starttime: [data.starttime, data.endtime]
+                        };
+                        createdCat = new zhibolist_1.zhibolist(newval);
+                        return [4, createdCat.save()];
+                    case 1:
+                        cab = _a.sent();
+                        return [4, zhibolist_1.zhibolist.updateOne({ _id: cab._id }, { md5id: ts_md5_1.Md5.hashStr(cab._id.toString()) })];
+                    case 2:
+                        cab2 = _a.sent();
+                        if (cab2) {
+                            re = { status: "ok", zhiboid: cab._id };
+                            return [2, re];
+                        }
+                        return [2];
+                }
+            });
+        });
+    };
+    LiveService.prototype.zhixueyun_changlive = function (id, data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var cab;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4, zhibolist_1.zhibolist.updateOne({ _id: id }, { 'name': data.name, starttime: [data.starttime, data.endtime] })];
+                    case 1:
+                        cab = _a.sent();
+                        return [2, cab];
+                }
+            });
+        });
+    };
+    LiveService.prototype.zhixueyun_getvideo = function (data) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2];
             });
         });
     };
@@ -262,7 +309,7 @@ var LiveService = (function () {
             var cab;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4, skyuser_1.skyuser.findOne({ eid: (data.eid).toString() })];
+                    case 0: return [4, skyuser_1.skyuser.findOne({ eid: data.eid })];
                     case 1:
                         cab = _a.sent();
                         return [2, cab];
@@ -516,12 +563,12 @@ var LiveService = (function () {
                             department: '',
                             departmentchild: '',
                             name: '',
-                            eid: 0,
-                            rank_id: 0
+                            eid: '0',
+                            rank_id: '0'
                         };
-                        user.eid = iterator.eid;
+                        user.eid = iterator.eid.toString();
                         user.name = iterator.user_name;
-                        user.rank_id = iterator.rank_id;
+                        user.rank_id = iterator.rank_id.toString();
                         if (iterator.depart_id.toString().length < 8) {
                             return [3, 6];
                         }

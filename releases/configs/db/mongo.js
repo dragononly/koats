@@ -42,7 +42,7 @@ function main() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4, mongoose.connect('mongodb://strapi:pp888888@xiong.pccpa.cn:3306/strapi')];
+                case 0: return [4, mongoose.connect('mongodb://strapi:pp888888@61.153.186.29:3306/strapi')];
                 case 1:
                     _a.sent();
                     return [2];

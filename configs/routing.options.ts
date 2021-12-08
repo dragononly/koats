@@ -5,6 +5,7 @@ import * as interceptors from './interceptors'
 import { dictToArray } from './utils'
 
 export const routingConfigs: RoutingControllersOptions = {
+
   controllers: dictToArray(controllers),
 
   middlewares: dictToArray(middlewares),
