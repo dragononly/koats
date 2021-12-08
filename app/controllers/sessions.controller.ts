@@ -19,7 +19,6 @@ const prisma = new PrismaClient()
 @Service()
 export class SessionsController {
   constructor(private sessionsService: SessionsService) { }
-
   @Get('')
   async query(@Res() response: any) {
     response.redirect('/public/zhibo/index.html');
