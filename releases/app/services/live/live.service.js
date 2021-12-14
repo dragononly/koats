@@ -53,7 +53,6 @@ var skyuser_1 = require("../../../configs/db/schema/live/skyuser");
 var livegroup_1 = require("../../../configs/db/schema/live/livegroup");
 var client_1 = require("@prisma/client");
 var mongo_1 = __importDefault(require("../../../configs/db/mongo"));
-var ts_md5_1 = require("ts-md5");
 var prisma = new client_1.PrismaClient();
 var LiveService = (function () {
     function LiveService() {
@@ -77,23 +76,20 @@ var LiveService = (function () {
     };
     LiveService.prototype.zhixueyun_addlive = function (data) {
         return __awaiter(this, void 0, void 0, function () {
-            var newval, createdCat, cab, cab2, re;
+            var newval, createdCat, cab, re;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         newval = {
-                            name: data.livename,
+                            name: data.name,
                             starttime: [data.starttime, data.endtime]
                         };
                         createdCat = new zhibolist_1.zhibolist(newval);
                         return [4, createdCat.save()];
                     case 1:
                         cab = _a.sent();
-                        return [4, zhibolist_1.zhibolist.updateOne({ _id: cab._id }, { md5id: ts_md5_1.Md5.hashStr(cab._id.toString()) })];
-                    case 2:
-                        cab2 = _a.sent();
-                        if (cab2) {
-                            re = { status: "ok", zhiboid: cab._id };
+                        if (cab) {
+                            re = { status: "ok", zhiboid: cab._id, name: cab.name };
                             return [2, re];
                         }
                         return [2];
@@ -101,15 +97,53 @@ var LiveService = (function () {
             });
         });
     };
-    LiveService.prototype.zhixueyun_changlive = function (id, data) {
+    LiveService.prototype.zhixueyun_zhibolist = function () {
         return __awaiter(this, void 0, void 0, function () {
             var cab;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4, zhibolist_1.zhibolist.updateOne({ _id: id }, { 'name': data.name, starttime: [data.starttime, data.endtime] })];
+                    case 0: return [4, zhibolist_1.zhibolist.find({}, { name: 1, lookback: 1 })];
                     case 1:
                         cab = _a.sent();
                         return [2, cab];
+                }
+            });
+        });
+    };
+    LiveService.prototype.zhixueyun_changlive = function (id, data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var cab, _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _b.trys.push([0, 2, , 3]);
+                        return [4, zhibolist_1.zhibolist.updateOne({ _id: id }, { 'name': data.name, starttime: [data.starttime, data.endtime] })];
+                    case 1:
+                        cab = _b.sent();
+                        return [2, cab];
+                    case 2:
+                        _a = _b.sent();
+                        return [2, false];
+                    case 3: return [2];
+                }
+            });
+        });
+    };
+    LiveService.prototype.zhixueyun_dezhibo = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var cab, _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _b.trys.push([0, 2, , 3]);
+                        return [4, zhibolist_1.zhibolist.deleteOne({ _id: id })];
+                    case 1:
+                        cab = _b.sent();
+                        return [2, cab];
+                    case 2:
+                        _a = _b.sent();
+                        return [2, false];
+                    case 3: return [2];
                 }
             });
         });
@@ -200,26 +234,6 @@ var LiveService = (function () {
                         cab = _a.sent();
                         _a.label = 4;
                     case 4: return [2, cab];
-                }
-            });
-        });
-    };
-    LiveService.prototype.cleanleave = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var cab1, cab2, cab3, ca;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4, skyuser_1.skyuser.deleteMany({ name: /(离)/i })];
-                    case 1:
-                        cab1 = _a.sent();
-                        return [4, skyuser_1.skyuser.deleteMany({ department: /[作废]/i })];
-                    case 2:
-                        cab2 = _a.sent();
-                        return [4, skyuser_1.skyuser.deleteMany({ departmentchild: /[作废]/i })];
-                    case 3:
-                        cab3 = _a.sent();
-                        ca = { cab1: cab1, cab2: cab2, cab3: cab3 };
-                        return [2, ca];
                 }
             });
         });
@@ -550,7 +564,7 @@ var LiveService = (function () {
             var cabuser, _i, cabuser_1, iterator, user, cabdepartment, newdepart_order_no, onlydepart_name, onlyarea_name, createdCat;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4, prisma.fs_employee.findMany({})];
+                    case 0: return [4, prisma.fs_employee.findMany({ where: { emp_style: 1 } })];
                     case 1:
                         cabuser = _a.sent();
                         _i = 0, cabuser_1 = cabuser;

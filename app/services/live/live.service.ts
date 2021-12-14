@@ -39,28 +39,51 @@ export class LiveService {
 
   //知学云的接口都在这
   //知学云添加直播到数据库
-  async zhixueyun_addlive(data: { livename: any; starttime: any; endtime: any }): Promise<any> {
+  async zhixueyun_addlive(data: { name: any; starttime: any; endtime: any }): Promise<any> {
     const newval = {
-      name: data.livename,
+      name: data.name,
       starttime: [data.starttime, data.endtime],
     };
 
     const createdCat = new zhibolist(newval);
-    const cab = await createdCat.save();
-    //这里把_idmd5一下保存
-    const cab2 = await zhibolist.updateOne({ _id: cab._id }, { md5id: Md5.hashStr(cab._id.toString()) })
-
-    if (cab2) {
-      const re = { status: "ok", zhiboid: cab._id }
+    const cab:any = await createdCat.save();
+    if (cab) {
+      const re = { status: "ok", zhiboid: cab._id,name:cab.name}
       return re;
     }
+    // //这里把_idmd5一下保存
+    // const cab2 = await zhibolist.updateOne({ _id: cab._id }, { md5id: Md5.hashStr(cab._id.toString()) })
+
+   
+  }
+
+  //查询直播列表groupname
+  async zhixueyun_zhibolist(): Promise<any> {
+    const cab = await zhibolist.find({}, { name: 1,lookback:1 });
+    return cab;
   }
 
   //修改直播
   async zhixueyun_changlive(id: string, data: any): Promise<any> {
-    let cab = await zhibolist.updateOne({ _id: id }, { 'name': data.name, starttime: [data.starttime, data.endtime] })
+    try {
+      const cab = await zhibolist.updateOne({ _id: id }, { 'name': data.name, starttime: [data.starttime, data.endtime] })
     return cab
+    } catch  {
+      return false
+      
+    }
+    
   }
+  //删除直播
+  async zhixueyun_dezhibo(id:string): Promise<any> {
+    try {
+      const cab = await zhibolist.deleteOne({ _id: id });
+      return cab;
+    } catch  {
+      return false
+    }
+  }
+  
 
 
   //获取直播视频地址
@@ -140,14 +163,14 @@ export class LiveService {
     return cab;
   }
 
-  //清除数据库的离职和作废
-  async cleanleave(): Promise<any> {
-    const cab1 = await skyuser.deleteMany({ name: /(离)/i });
-    const cab2 = await skyuser.deleteMany({ department: /[作废]/i });
-    const cab3 = await skyuser.deleteMany({ departmentchild: /[作废]/i });
-    const ca = { cab1: cab1, cab2: cab2, cab3: cab3 };
-    return ca;
-  }
+  // //清除数据库的离职和作废
+  // async cleanleave(): Promise<any> {
+  //   const cab1 = await skyuser.deleteMany({ name: /(离)/i });
+  //   const cab2 = await skyuser.deleteMany({ department: /[作废]/i });
+  //   const cab3 = await skyuser.deleteMany({ departmentchild: /[作废]/i });
+  //   const ca = { cab1: cab1, cab2: cab2, cab3: cab3 };
+  //   return ca;
+  // }
   //导出当前直播的签到记录
   async findallsignusertime(data): Promise<any> {
     const cab = await zhibolist.findById({ _id: data.zhiboid });
@@ -237,7 +260,7 @@ export class LiveService {
   //查询直播列表groupname
   async findzhibo_groupname(): Promise<any> {
     const cab = await zhibolist.find({}, { group: 1 });
-
+    
 
     return cab;
   }
@@ -464,7 +487,7 @@ export class LiveService {
   //构建用户treedata
   async treedata(): Promise<any> {
     //1.遍历出所有人的名字
-    const cabuser = await prisma.fs_employee.findMany({});
+    const cabuser = await prisma.fs_employee.findMany({ where: { emp_style: 1 }});
     for (const iterator of cabuser) {
       //1.1然后得到了eid，姓名，rank_id,depart_id
       //这里先申明一个对象来存储信息

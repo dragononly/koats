@@ -1,9 +1,34 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
 };
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -42,28 +67,46 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.HeaderMiddleware = void 0;
+exports.OpenapiController = void 0;
 var routing_controllers_1 = require("routing-controllers");
+var services_1 = require("../../services/index");
+var dec_service_1 = require("../../services/tools/dec.service");
 var typedi_1 = require("typedi");
-var HeaderMiddleware = (function () {
-    function HeaderMiddleware() {
+var jwt = __importStar(require("jsonwebtoken"));
+var OpenapiController = (function () {
+    function OpenapiController(catsService, decService) {
+        this.catsService = catsService;
+        this.decService = decService;
     }
-    HeaderMiddleware.prototype.use = function (context, next) {
+    OpenapiController.prototype.zxy_accesstoken = function (data) {
         return __awaiter(this, void 0, void 0, function () {
+            var secret, payload, token;
             return __generator(this, function (_a) {
-                context.set('Access-Control-Allow-Methods', 'GET,HEAD,PUT,POST,DELETE,PATCH');
-                context.set('Access-Control-Allow-Origin', context.request.header.origin || context.request.origin);
-                context.set('Access-Control-Allow-Headers', "*");
-                context.set('Access-Control-Allow-Credentials', 'true');
-                context.set('Content-Type', 'application/json; charset=utf-8');
-                return [2, next()];
+                secret = process.env.KEY;
+                if (data.appid == "tj73325e554f56eb05" && data.appkey == "f778ae2021e0f8e98e5ac76fe00e28b0") {
+                    payload = { zhiboid: data.zhiboid, eid: data.eid };
+                    token = jwt.sign(payload, secret, { expiresIn: '12h' });
+                    return [2, { data: token }];
+                }
+                else {
+                    return [2, 'appid或者key错误'];
+                }
+                return [2];
             });
         });
     };
-    HeaderMiddleware = __decorate([
-        routing_controllers_1.Middleware({ type: 'before' }),
-        typedi_1.Service()
-    ], HeaderMiddleware);
-    return HeaderMiddleware;
+    __decorate([
+        routing_controllers_1.Post('openapi/accesstoken'),
+        __param(0, routing_controllers_1.Body()),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object]),
+        __metadata("design:returntype", Promise)
+    ], OpenapiController.prototype, "zxy_accesstoken");
+    OpenapiController = __decorate([
+        routing_controllers_1.JsonController(),
+        typedi_1.Service(),
+        __metadata("design:paramtypes", [services_1.LiveService, dec_service_1.decService])
+    ], OpenapiController);
+    return OpenapiController;
 }());
-exports.HeaderMiddleware = HeaderMiddleware;
+exports.OpenapiController = OpenapiController;

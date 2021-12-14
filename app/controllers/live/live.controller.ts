@@ -11,7 +11,8 @@ import {
     Body,
     Redirect,
     Res,
-    Put
+    Put,
+    Delete
 } from 'routing-controllers'
 import Request from "koa"
 import { LiveService } from '../../services'
@@ -59,36 +60,42 @@ export class LiveController {
     //知学云的接口都在这
     //天健直播
     //创建直播
-    @Post('zhixueyun/addlive')
-    async zhixueyun_addlive(@Body() data: any) {
-        const cab = await this.catsService.zhixueyun_addlive(data);
+    // @Post('zhixueyun/addlive')
+    // async zhixueyun_addlive(@Body() data: any) {
+    //     const cab = await this.catsService.zhixueyun_addlive(data);
+    //     return { data: cab };
+    // }
 
+    // @Put('zhixueyun/changlive/:id')
+    // async zhixueyun_changlive(@Param('id') id: string, @Body() data: any) {
+    //     const cab = await this.catsService.zhixueyun_changlive(id, data);
+    //     return { data: cab };
+    // }
+    // @Get('zhixueyun/zhibolist')
+    // async zhixueyun_zhibolist() {
+    //     const cab = await this.catsService.zhixueyun_zhibolist();
+    //     return { data: cab };
+    // }
+    // @Delete('zhixueyun/dezhibo/:id')
+    // async zhixueyun_dezhibo(@Param('id') id: string) {
+    //     const cab = await this.catsService.zhixueyun_dezhibo(id);
+    //     return { data: cab };
+    // }
 
-        return { data: cab };
-    }
-
-    @Put('zhixueyun/changlive/:id')
-    async zhixueyun_changlive(@Param('id') id: string, @Body() data: any) {
-        const cab = await this.catsService.zhixueyun_changlive(id, data);
-        return { data: cab };
-    }
-
-    @Get("zhixueyun/watch")
-    async zhixueyun_watch(@Res() response: any, @QueryParams() data: any) {
-        console.log(data);
-
-        let eid = data.eid, zhiboid = Md5.hashStr(data.zhiboid), eidkey = Md5.hashStr(data.eid)
-        console.log(eidkey);
-
-        // response.redirect(`/public/zhibo/index.html#/center?urlid=${zhiboid}&id=${eid}`);
-        response.redirect(`http://127.0.0.1:3000/#/center?zhiboid=${zhiboid}&eid=${eid}&key=${eidkey}`)
-
-    }
-
-
-
-
-
+    // @Get("zhixueyun/watch")
+    // async zhixueyun_watch(@Res() response: any, @QueryParams() data: any) {
+    //     let [eid,zhiboid,sign,times] = [data.eid,data.zhiboid,data.sign,data.times]
+    //     const serversign= Md5.hashStr(Md5.hashStr(data.eid+data.zhiboid+data.eid.times))
+    //     console.log(sign,serversign);
+        
+    //     if(sign==serversign){
+    //         return `http://127.0.0.1:3000/#/center?zhiboid=${zhiboid}&eid=${eid}`
+    //         // response.redirect(`/public/zhibo/index.html#/center?urlid=${zhiboid}&id=${eid}`);
+    //         response.redirect(`http://127.0.0.1:3000/#/center?zhiboid=${zhiboid}&eid=${eid}`)
+    //     }else{
+    //         return false
+    //     }
+    // }
 
 
     //直播list只返回groupname arr
@@ -132,12 +139,12 @@ export class LiveController {
         return { data: cab };
     }
 
-    //清除数据库的离职和作废
-    @Post('live/cleanleave')
-    async cleanleave(@Body() data: any) {
-        const cab = await this.catsService.cleanleave();
-        return { data: cab };
-    }
+    // //清除数据库的离职和作废
+    // @Post('live/cleanleave')
+    // async cleanleave(@Body() data: any) {
+    //     const cab = await this.catsService.cleanleave();
+    //     return { data: cab };
+    // }
     //导出当前直播的签到记录
     @Post('live/findallsignusertime')
     async findallsignusertime(@Body() data: any) {

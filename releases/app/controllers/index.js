@@ -12,5 +12,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 exports.__esModule = true;
 __exportStar(require("./sessions.controller"), exports);
 __exportStar(require("./live/live.controller"), exports);
+__exportStar(require("./openapi/openapi.controller"), exports);
+__exportStar(require("./zxylive/zxylive.controller"), exports);
 __exportStar(require("./auto/awrite"), exports);
 __exportStar(require("./auto/auto.controller"), exports);

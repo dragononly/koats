@@ -36,6 +36,7 @@ model fs_employee {
   id        Int     @id @default(autoincrement())
   eid       Int
   rank_id   Int
+  emp_style Int
   user_name String?
   depart_id Int
 }

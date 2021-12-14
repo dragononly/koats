@@ -5,10 +5,19 @@ import createServer from 'configs/application'
 import * as bootstrap from 'configs/bootstrap'
 import serve from "koa-static2";
 import ws from 'ws'
-
+// import koaJwt from 'koa-jwt'
 module.exports = (async (): Promise<Server> => {
   try {
     const app = await createServer()
+  //路由权限控制 除了path里的路径不需要验证token 其他都要
+  // app.use(
+  //   koaJwt({
+  //       secret: process.env.KEY
+  //   }).unless({
+  //       path: [/^\/login/, /^\/register/,/^\/public/,/^\/live/,/^\/auto/,/^\/openapi/]
+  //   })
+  // );
+ 
 
     app.use(serve("public", __dirname + "/public"));
     // let _server = app.listen(3000);  // start
