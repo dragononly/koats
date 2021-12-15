@@ -72,6 +72,7 @@ var routing_controllers_1 = require("routing-controllers");
 var services_1 = require("../../services/index");
 var dec_service_1 = require("../../services/tools/dec.service");
 var typedi_1 = require("typedi");
+var md5_1 = require("ts-md5/dist/md5");
 var jwt = __importStar(require("jsonwebtoken"));
 var ve = (function (token) { return __awaiter(void 0, void 0, void 0, function () {
     var decoded;
@@ -182,22 +183,27 @@ var ZhixueyunLiveController = (function () {
             });
         });
     };
-    ZhixueyunLiveController.prototype.zhixueyun_watch = function (response, data, token) {
+    ZhixueyunLiveController.prototype.zhixueyun_watch = function (response, data) {
         return __awaiter(this, void 0, void 0, function () {
-            var cab;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4, ve(token)];
-                    case 1:
-                        cab = _a.sent();
-                        if (cab) {
-                            return [2, "http://127.0.0.1:3000/#/center?accesstoken=" + token];
-                        }
-                        else {
-                            return [2, false];
-                        }
-                        return [2];
+            var _a, eid, zhiboid, times, sign, val, mysign, secret, payload, token;
+            return __generator(this, function (_b) {
+                _a = [data.eid, data.zhiboid, data.times, data.sign], eid = _a[0], zhiboid = _a[1], times = _a[2], sign = _a[3];
+                val = eid + zhiboid + times;
+                mysign = md5_1.Md5.hashStr(val);
+                mysign = md5_1.Md5.hashStr(mysign);
+                console.log(val);
+                console.log(mysign);
+                if (mysign == sign) {
+                    secret = process.env.KEY;
+                    payload = { zhiboid: data.zhiboid, eid: data.eid };
+                    token = jwt.sign(payload, secret, { expiresIn: '24h' });
+                    console.log(token);
+                    return [2, "http://cdn.pccpa.cn:9000/public/zhibo/index.html#/center??accesstoken=" + token];
                 }
+                else {
+                    return [2, false];
+                }
+                return [2];
             });
         });
     };
@@ -238,9 +244,9 @@ var ZhixueyunLiveController = (function () {
     ], ZhixueyunLiveController.prototype, "zhixueyun_dezhibo");
     __decorate([
         routing_controllers_1.Get("zxylive/watch"),
-        __param(0, routing_controllers_1.Res()), __param(1, routing_controllers_1.QueryParams()), __param(2, routing_controllers_1.HeaderParam("authorization")),
+        __param(0, routing_controllers_1.Res()), __param(1, routing_controllers_1.QueryParams()),
         __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Object, Object, String]),
+        __metadata("design:paramtypes", [Object, Object]),
         __metadata("design:returntype", Promise)
     ], ZhixueyunLiveController.prototype, "zhixueyun_watch");
     ZhixueyunLiveController = __decorate([

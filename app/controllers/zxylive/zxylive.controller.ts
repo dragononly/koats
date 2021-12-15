@@ -94,17 +94,27 @@ export class ZhixueyunLiveController {
     }
 
     @Get("zxylive/watch")
-    async zhixueyun_watch(@Res() response: any, @QueryParams() data: any,@HeaderParam("authorization") token: string) {
-        const cab:any =await ve(token) 
-        if(cab){
-            return `http://127.0.0.1:3000/#/center?accesstoken=${token}`
-            // return `http://cdn.pccpa.cn:9000/#/center?accesstoken=${token}`
+    async zhixueyun_watch(@Res() response: any, @QueryParams() data: any,) {
+        let [eid,zhiboid,times,sign]=[data.eid,data.zhiboid,data.times,data.sign]
+        let val=eid+zhiboid+times
+        let mysign=Md5.hashStr(val)
+        mysign=Md5.hashStr(mysign)
+        console.log(val);
+        console.log(mysign);
+        
+        if(mysign==sign){
+            const secret = process.env.KEY;
+            const payload = {zhiboid:data.zhiboid, eid:data.eid};
+            const token = jwt.sign(payload, secret, { expiresIn:  '24h' });
+            console.log(token);
+            
+            //return `http://127.0.0.1:3000/#/center?accesstoken=${token}`
+            return `http://cdn.pccpa.cn:9000/public/zhibo/index.html#/center??accesstoken=${token}`
             // response.redirect(`/public/zhibo/index.html#/center?urlid=${zhiboid}&id=${eid}`);
            // response.redirect(`http://127.0.0.1:3000/#/center?zhiboid=${zhiboid}&eid=${eid}`)
         }else{
             return false
         }
-        
     }
 
 }
