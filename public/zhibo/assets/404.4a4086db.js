@@ -1,0 +1,1 @@
+import{r as t,c as a,w as e,o as r,q as n}from"./vendor.ce8dfec8.js";const o={name:"btn"},s=n("404迷路页面22");o.render=function(n,o,c,d,f,u){const m=t("a-button");return r(),a(m,{type:"primary"},{default:e((()=>[s])),_:1})};export{o as default};
